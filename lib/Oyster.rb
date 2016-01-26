@@ -1,6 +1,6 @@
 class Oyster
     
-    attr_reader :balance, :entry_station
+    attr_reader :balance, :entry_station, :journey_hist, :exit_station
     
     MAX_CARD_LIMIT = 90
     
@@ -8,8 +8,9 @@ class Oyster
     
     def initialize
         @balance = 0
-        #@in_use = false
-        @entry_station = nil
+        #@entry_station = 'x'
+        #@exit_station = "hold"
+        @journey_hist = {}
     end
     
     def top_up(value)
@@ -20,18 +21,18 @@ class Oyster
     def touch_in(entry_station)
         fail "Under #{MIN_CARD_LIMIT}, balance to low" if balance < MIN_CARD_LIMIT
         @entry_station = entry_station
-        #@in_use = true
+        @journey_hist[@entry_station] = nil
     end
     
     def touch_out(exit_station)
         deduct(1)
-        @entry_station = nil
-        #@in_use = false 
+        @exit_station = exit_station
+        @journey_hist[@entry_station] = @exit_station 
         
     end
     
     def in_journey?
-        @entry_station
+        @journey_hist.empty? ? false : @journey_hist[@entry_station] == nil
     end
     
     

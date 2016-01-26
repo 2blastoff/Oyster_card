@@ -67,6 +67,34 @@ describe Oyster do
         expect(oyster.exit_station).to eq exit_station
     end
 
+    it 'checks entry station is saved to key' do
+        oyster.instance_variable_set("@balance", 1)
+        oyster.touch_in(entry_station)
+        expect(oyster.journey_hist.has_key?(entry_station)).to be true
+    end
     
+    it 'checks exit station is saved to value' do
+        oyster.instance_variable_set("@balance", 1)
+        oyster.touch_in(entry_station)
+        oyster.touch_out(exit_station)
+        expect(oyster.journey_hist.has_value?(exit_station)).to be true
+    end
+    
+    it 'checks that we are not in_journey? before touch_in' do
+        expect(oyster.in_journey?).to be false
+    end    
+    
+    it 'checks that we are in_journey? after touch_in' do
+        oyster.instance_variable_set("@balance", 1)
+        oyster.touch_in(entry_station)
+        expect(oyster.in_journey?).to be true 
+    end 
+    
+    it 'checks that we are not in_journey? after touch_in and touch_out' do
+        oyster.instance_variable_set("@balance", 1)
+        oyster.touch_in(entry_station)
+        oyster.touch_out(exit_station)
+        expect(oyster.in_journey?).to be false
+    end 
 
 end
