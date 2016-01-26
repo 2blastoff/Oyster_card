@@ -79,6 +79,10 @@ describe Oyster do
         oyster.touch_out(exit_station)
         expect(oyster.journey_hist.has_value?(exit_station)).to be true
     end
+
+    it 'checks that journey_hist is blank before first touch_in' do
+        expect(oyster.journey_hist.empty?).to be true
+    end    
     
     it 'checks that we are not in_journey? before touch_in' do
         expect(oyster.in_journey?).to be false
