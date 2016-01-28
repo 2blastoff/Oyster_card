@@ -10,7 +10,5 @@ describe Station do
   it 'has the correct zone' do
     expect(station.zone).to eq(1)
   end
-  
-  
 
 end

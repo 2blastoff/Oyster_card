@@ -21,7 +21,6 @@ describe Journey do
     end
   end
 
-
   context 'at journey end' do
     describe 'exit' do
       it 'returns itself' do
